@@ -9,6 +9,7 @@ const port = 3000;
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded( {extended: true }));
 
+
 app.get("/", async (req, res) => {
     try {
         res.render("index.ejs");
@@ -29,13 +30,16 @@ app.post("/submit", async (req, res) => {
         const splitDate = data.location.localtime.split(" ")[0];
         const splitTime = data.location.localtime.split(" ")[1];
         const d = new Date(splitDate);
-        const curentDay = days[d.getUTCDay()]
+        const curentDay = days[d.getUTCDay()];
+    
 
         res.render("index.ejs", {
             temp: `${data.current.temp_f}° F`,
             city: data.location.name,
             condition: data.current.condition.text,
-            date: `${splitDate} ${curentDay} ${splitTime}`
+            date: `${splitDate} ${curentDay} ${splitTime}`,
+            icon: data.current.condition.icon
+           
         });
     } catch (error) {
         console.error("Failed to make request:", error.message);
@@ -45,4 +49,4 @@ app.post("/submit", async (req, res) => {
 
 app.listen(port, () => {
     console.log("Listening on port " + port);
-})
+});
