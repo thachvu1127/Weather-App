@@ -11,25 +11,52 @@
     <div class="container">
         <div class="weather_container">
             <div class="temp">
-                <p>20</p>
+                <p>
+                   <% if (locals.temp) { %>
+                    <%=temp%>
+                    <% } else { %>
+                        <p> How is the weather today! </p>
+                    <% } %>
+                </p>
             </div>
             
             <div class="location">
-                <p>Garden Grove</p>
-                <p id="date">1:19 - Tuesday 2024-10-01</p>
+                <p>
+                    <% if (locals.city) { %>
+                        <%= city %>
+                        <% } else { %>
+                            <p>What city you like to explore?</p>
+                        <% } %>
+                </p>
+                <p id="date">
+                    <% if (locals.date) { %>
+                        <%= date %>
+                        <% } else { %>
+                            <p>Current time ...</p>
+                        <% } %>
+                </p>
             </div>
 
 
             <div class="condition">
-                <div><img class="icon" src=""></div>
+                <div>
+                    
+                </div>
     
-                <p id="weather_type">Mist</p>
+                <p id="weather_type">
+                    <% if (locals.condition) { %>
+                        <%= condition %>
+                        <% } else { %>
+                            <p>Weather condition</p>
+                        <% } %>
+                    
+                </p>
             </div>
         </div>
 
         <nav>
-            <form>
-                <input type="text" placeholder="Search Location" class="search_area"/>
+            <form action="/submit" method="POST">
+                <input type="text" name="location" placeholder="Search Location" class="search_area" autofocus/>
                 <button type="submit"> Search</button>
     
             </form>
